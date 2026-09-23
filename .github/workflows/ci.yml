@@ -41,3 +41,8 @@ jobs:
         run: |
           cp target/cicd-test-0.0.1-SNAPSHOT.jar cicd-test-0.0.1-SNAPSHOT.jar
           zip deploy.zip cicd-test-0.0.1-SNAPSHOT.jar Procfile
+          
+
+      - name: Upload deployment package to S3
+        run: |
+          aws s3 cp deploy.zip s3://elasticbeanstalk-ap-northeast-1-839920003786/cicd-test/deploy.zip
