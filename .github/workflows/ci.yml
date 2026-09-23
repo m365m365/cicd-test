@@ -4,6 +4,10 @@ on:
   push:
     branches: [ "main" ]
 
+    permissions:
+      id-token: write
+      contents: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,3 +28,9 @@ jobs:
 
       - name: Build and test
         run: ./mvnw clean package
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          role-to-assume: arn:aws:iam::839920003786:role/GitHubActions-CicdTest-Role
+          aws-region: ap-northeast-1
