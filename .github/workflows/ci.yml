@@ -46,3 +46,11 @@ jobs:
       - name: Upload deployment package to S3
         run: |
           aws s3 cp deploy.zip s3://elasticbeanstalk-ap-northeast-1-839920003786/cicd-test/deploy.zip
+          
+          
+      - name: Create Elastic Beanstalk application version
+        run: |
+          aws elasticbeanstalk create-application-version \
+            --application-name cicd-test \
+            --version-label "github-${{ github.run_number }}" \
+            --source-bundle S3Bucket=elasticbeanstalk-ap-northeast-1-839920003786,S3Key=cicd-test/deploy.zip
