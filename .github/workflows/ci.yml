@@ -35,3 +35,9 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::839920003786:role/GitHubActions-CicdTest-Role
           aws-region: ap-northeast-1
+
+
+      - name: Create deployment package
+        run: |
+          cp target/cicd-test-0.0.1-SNAPSHOT.jar cicd-test-0.0.1-SNAPSHOT.jar
+          zip deploy.zip cicd-test-0.0.1-SNAPSHOT.jar Procfile
